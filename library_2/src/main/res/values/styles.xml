@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="LoadingLayoutDefaultStyle">
+        <item name="llEmptyResId">@layout/loading_layout_empty</item>
+        <item name="llLoadingResId">@layout/loading_layout_loading</item>
+        <item name="llErrorResId">@layout/loading_layout_error</item>
+        <item name="llEmptyImage">@null</item>
+        <item name="llErrorImage">@null</item>
+    </style>
+
+    <style name="TextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_size_18sp</item>
+        <item name="android:textColor">@color/black_text_color_selector</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="TextAppearance.16sp">
+        <item name="android:textSize">@dimen/text_medium_size</item>
+    </style>
+    <style name="DialogBtnCancel" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/btn_round_purple_outline_bg</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:minWidth">110dp</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@animator/widget_scale_animator</item>
+    </style>
+
+
+</resources>

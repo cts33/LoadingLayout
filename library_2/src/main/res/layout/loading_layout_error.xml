@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="80dp">
+
+    <ImageView
+        android:id="@+id/error_image"
+        android:layout_width="188dp"
+        android:layout_height="112dp"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/common_edge_space"
+        android:layout_marginStart="@dimen/common_edge_space"
+        android:layout_marginTop="8dp"
+        android:includeFontPadding="false" />
+
+    <Button
+        android:id="@+id/retry_button"
+        style="@style/DialogBtnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+        android:text="@string/retry" />
+
+</LinearLayout>
