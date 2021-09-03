@@ -178,9 +178,9 @@ public class LoadingLayout extends FrameLayout implements IStatusView {
                 txt.setText(mErrorText);
             }
             View btn = layout.findViewById(R.id.retry_button);
-//            if (btn != null) {
-//                btn.setOnClickListener(mRetryButtonClickListener);
-//            }
+            if (btn != null) {
+                btn.setOnClickListener(mRetryButtonClickListener);
+            }
 //            if (mOnErrorInflateListener != null) {
 //                mOnErrorInflateListener.onInflate(layout);
 //            }
@@ -243,4 +243,11 @@ public class LoadingLayout extends FrameLayout implements IStatusView {
         mLayouts.put(view.getId(),view);
         mStatus = SUCCESS;
     }
+    OnClickListener mRetryButtonClickListener;
+
+    public void setRetryButtonClickListener(OnClickListener mRetryButtonClickListener) {
+        this.mRetryButtonClickListener = mRetryButtonClickListener;
+    }
+
+
 }
