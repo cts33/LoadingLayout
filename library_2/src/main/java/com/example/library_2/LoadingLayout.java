@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -100,11 +101,24 @@ public class LoadingLayout extends FrameLayout implements IStatusView{
     private void setError() {
 
         show(mErrorResId);
+        image(mErrorResId,R.id.error_image,"出错了！");
     }
 
     private void setEmpty() {
 
         show(mEmptyResId);
+    }
+
+    public LoadingLayout setErrorImage(@DrawableRes int resId) {
+        mErrorImage = resId;
+        image(mErrorResId, R.id.error_image, mErrorImage);
+        return this;
+    }
+
+    public LoadingLayout setErrorText(String value) {
+        mErrorText = value;
+        text(mErrorResId, R.id.error_text, mErrorText);
+        return this;
     }
 
     Map<Integer, View> mLayouts = new HashMap<>();
@@ -173,6 +187,24 @@ public class LoadingLayout extends FrameLayout implements IStatusView{
             mStatus = EMPTY;
         } else if (layoutId == mErrorResId) {
             mStatus = ERROR;
+        }
+    }
+
+    private void text(int layoutId, int ctrlId, CharSequence value) {
+        if (mLayouts.containsKey(layoutId)) {
+            TextView view = mLayouts.get(layoutId).findViewById(ctrlId);
+            if (view != null) {
+                view.setText(value);
+            }
+        }
+    }
+
+    private void image(int layoutId, int ctrlId, int resId) {
+        if (mLayouts.containsKey(layoutId)) {
+            ImageView view = mLayouts.get(layoutId).findViewById(ctrlId);
+            if (view != null) {
+                view.setImageResource(resId);
+            }
         }
     }
 
