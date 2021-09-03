@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,34 +21,36 @@ import androidx.annotation.RequiresApi;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoadingLayout extends FrameLayout implements IStatusView{
+public class LoadingLayout extends FrameLayout implements IStatusView {
 
-    public static final  int SUCCESS = 0;
-    public static final  int EMPTY = 1;
-    public static final  int LOADING = 2;
-    public static final  int ERROR = 3;
+    public static final int SUCCESS = 0;
+    public static final int EMPTY = 1;
+    public static final int LOADING = 2;
+    public static final int ERROR = 3;
 
-    LayoutInflater mInflater;
+    private LayoutInflater mInflater;
 
-    int mEmptyImage;
-    CharSequence mEmptyText;
+    private int mEmptyImage;
+    private CharSequence mEmptyText;
     private int mEmptyResId = NO_ID, mLoadingResId = NO_ID, mErrorResId = NO_ID;
-    int mContentId = NO_ID;
-    int mErrorImage;
-    CharSequence mErrorText, mRetryText;
+    private int mContentId = NO_ID;
+    private  int mErrorImage;
+    private CharSequence mErrorText, mRetryText;
     private int mStatus;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public LoadingLayout(@NonNull Context context) {
-        this(context,null);
+        this(context, null);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr,0);
+        this(context, attrs, defStyleAttr, 0);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -72,7 +75,7 @@ public class LoadingLayout extends FrameLayout implements IStatusView{
     @Override
     public void setStatus(int status) {
 
-        switch (status){
+        switch (status) {
             case SUCCESS:
                 setContent();
                 break;
@@ -101,12 +104,16 @@ public class LoadingLayout extends FrameLayout implements IStatusView{
     private void setError() {
 
         show(mErrorResId);
-        image(mErrorResId,R.id.error_image,"出错了！");
+        image(mErrorResId, R.id.error_image, R.drawable.icon_error);
+        text(mErrorResId, R.id.error_text, "出错了");
+        btn(mErrorResId, R.id.retry_button, "点击重试");
     }
 
     private void setEmpty() {
 
         show(mEmptyResId);
+        image(mEmptyResId, R.id.empty_image, R.drawable.icon_empty);
+        text(mEmptyResId, R.id.empty_text, "无数据");
     }
 
     public LoadingLayout setErrorImage(@DrawableRes int resId) {
@@ -122,12 +129,15 @@ public class LoadingLayout extends FrameLayout implements IStatusView{
     }
 
     Map<Integer, View> mLayouts = new HashMap<>();
+
     public void show(int layoutId) {
         for (View view : mLayouts.values()) {
             if (view.getVisibility() != View.GONE) {
                 view.setVisibility(GONE);
             }
         }
+        if (layoutId == -1)
+            return;
         View layout = layout(layoutId);
         updateStatusByLayoutId(layoutId);
         if (layout.getVisibility() != View.VISIBLE) {
@@ -199,6 +209,17 @@ public class LoadingLayout extends FrameLayout implements IStatusView{
         }
     }
 
+
+    private void btn(int layoutId, int ctrlId, String resId) {
+        if (mLayouts.containsKey(layoutId)) {
+            Button view = mLayouts.get(layoutId).findViewById(ctrlId);
+            if (view != null) {
+                view.setText(resId);
+            }
+        }
+    }
+
+
     private void image(int layoutId, int ctrlId, int resId) {
         if (mLayouts.containsKey(layoutId)) {
             ImageView view = mLayouts.get(layoutId).findViewById(ctrlId);
@@ -208,4 +229,18 @@ public class LoadingLayout extends FrameLayout implements IStatusView{
         }
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        if (getChildCount()==0)
+            return;
+
+        if (getChildCount()>1){
+            removeViews(1,getChildCount()-1);
+        }
+        View view = getChildAt(0);
+        mLayouts.put(view.getId(),view);
+        mStatus = SUCCESS;
+    }
 }

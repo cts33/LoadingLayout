@@ -18,6 +18,7 @@ import com.example.library_2.LoadingLayout;
 import java.util.Locale;
 import java.util.Random;
 
+import static com.example.library_2.LoadingLayout.EMPTY;
 import static com.example.library_2.LoadingLayout.ERROR;
 import static com.example.library_2.LoadingLayout.LOADING;
 import static com.example.library_2.LoadingLayout.SUCCESS;
@@ -41,7 +42,7 @@ public class Loading_1_Activity extends AppCompatActivity {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
 
-                        mLoading.setStatus(ERROR);
+                        mLoading.setStatus(EMPTY);
                         Log.d(TAG, "onLoadFailed: ");
 
                         return false;
@@ -61,8 +62,8 @@ public class Loading_1_Activity extends AppCompatActivity {
 
     public static String getRandomImage() {
         Random random = new Random();
-        int id = random.nextInt(1000);
-//        id = id%2==0 ? -1:0;
+        int id = random.nextInt(100000);
+        id = id%2==0 ? -1:0;
 
         String url = String.format(Locale.CHINA, "https://www.thiswaifudoesnotexist.net/example-%d.jpg", id);
 
