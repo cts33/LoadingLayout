@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity   {
         mClick1 = findViewById(R.id.click1);
         mClick2 = findViewById(R.id.click2);
         mClick1.setOnClickListener(this::onClick);
-        mClick1.setOnClickListener(this::onClick);
+        mClick2.setOnClickListener(this::onClick);
     }
 
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity   {
 
         switch (view.getId()){
             case R.id.click1:
-                startActivity(new Intent(MainActivity.this,Loading_1_Activity.class));
+//                startActivity(new Intent(MainActivity.this,Loading_1_Activity.class));
                 break;
             case R.id.click2:
                 startActivity(new Intent(MainActivity.this,Loading_2_Activity.class));

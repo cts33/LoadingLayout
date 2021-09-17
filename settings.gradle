@@ -1,4 +1,4 @@
 rootProject.name = "LoadingLayout"
 include ':app'
-//include ':library_1'
-include ':library_2'
+include ':library_1'
+//include ':library_2'
