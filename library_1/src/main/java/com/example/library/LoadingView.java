@@ -42,6 +42,7 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         emptyMsg = getResources().getString(R.string.load_empty);
         loadingMsg = getResources().getString(R.string.loading);
 
+        setBackgroundColor(bgColor);
     }
 
     private static final String TAG = "NormalLoadingView";
