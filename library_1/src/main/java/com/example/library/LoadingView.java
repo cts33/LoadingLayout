@@ -53,7 +53,6 @@ public class LoadingView extends LinearLayout implements ILoadingView {
 
     public void setVisibleByStatus(int status) {
 
-        View.OnClickListener onClickListener = null;
 
         switch (status) {
             case STATUS_LOAD_SUCCESS:
@@ -95,16 +94,16 @@ public class LoadingView extends LinearLayout implements ILoadingView {
     }
 
     @Override
-    public void showLoadFailed(OnClickListener onClickListener) {
+    public void showLoadFailed() {
         currMsg = errorMsg;
         currImage = R.drawable.icon_failed;
         show = true;
+
+    }
+    public void setOnClickListener(OnClickListener onClickListener){
         this.onClickListener = onClickListener;
     }
 
-    public void showLoadFailed() {
-        showLoadFailed(null);
-    }
 
     @Override
     public void showLoadEmpty() {

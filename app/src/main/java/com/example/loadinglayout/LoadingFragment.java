@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,13 @@ public class LoadingFragment extends Fragment {
                     @Override
                     public void run() {
 //                        loadingLaout.showLoadSuccess();
-//                        loadingLaout.showLoadFailed();
-                        loadingLaout.showLoadEmpty();
+                        loadingLaout.showLoadFailed(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View view) {
+                                Log.d("xxx", "onClick: ");
+                            }
+                        });
+//                        loadingLaout.showLoadEmpty();
                         recycler.setAdapter(new RecyclerView.Adapter<VH>() {
                             @NonNull
                             @Override
@@ -92,8 +98,8 @@ public class LoadingFragment extends Fragment {
         loadingLaout = (LoadingLayout) getView().findViewById(R.id.loadingLayout);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        loadingLaout.setLoadingText("loading--xxx",android.R.color.holo_green_light,22f)
-                .setBgColor(android.R.color.white);
+//        loadingLaout.setLoadingText("loading--xxx",android.R.color.holo_green_light,22f)
+//                .setBgColor(android.R.color.white);
 
     }
 

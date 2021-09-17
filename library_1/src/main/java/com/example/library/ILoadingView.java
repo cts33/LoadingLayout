@@ -17,7 +17,7 @@ public interface ILoadingView   {
 
     void showLoadSuccess();
 
-    void showLoadFailed(View.OnClickListener onClickListener);
+    void showLoadFailed();
 
     void showLoadEmpty();
 

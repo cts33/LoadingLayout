@@ -53,6 +53,11 @@ public class LoadingLayout extends FrameLayout {
 
         loadingView.setVisibleByStatus(STATUS_LOAD_FAILED);
     }
+    public void showLoadFailed(OnClickListener onClickListener) {
+
+        loadingView.setVisibleByStatus(STATUS_LOAD_FAILED);
+        loadingView.setOnClickListener(onClickListener);
+    }
 
     public void showLoadEmpty() {
 
