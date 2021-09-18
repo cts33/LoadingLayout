@@ -10,9 +10,9 @@ public interface ILoadingView   {
 
     void showLoadSuccess();
 
-    void showLoadFailed();
+    void showLoadFailed(String msg);
 
-    void showLoadEmpty();
+    void showLoadEmpty(String msg);
 
 }
 

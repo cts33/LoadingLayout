@@ -76,8 +76,12 @@ public class LoadingLayout extends FrameLayout {
     }
 
     public void showLoading() {
+        showLoading("");
+    }
 
-        loadingView.setVisibleByStatus(STATUS_LOADING);
+    public void showLoading(String msg) {
+
+        loadingView.setVisibleByStatus(STATUS_LOADING, msg);
         int index = indexOfChild(loadingView);
         if (index == -1) {
             addView(loadingView);
@@ -85,16 +89,24 @@ public class LoadingLayout extends FrameLayout {
     }
 
     public void showLoadSuccess() {
-        loadingView.setVisibleByStatus(STATUS_LOAD_SUCCESS);
+        showLoadSuccess("");
+    }
+
+    public void showLoadSuccess(String msg) {
+        loadingView.setVisibleByStatus(STATUS_LOAD_SUCCESS, msg);
     }
 
     public void showLoadFailed() {
+        showLoadFailed("");
+    }
 
-        loadingView.setVisibleByStatus(STATUS_LOAD_FAILED);
+    public void showLoadFailed(String msg) {
+
+        loadingView.setVisibleByStatus(STATUS_LOAD_FAILED, msg);
     }
 
 
-    public void setRetryClickListener(IRetryListener iRetryListener){
+    public void setRetryClickListener(IRetryListener iRetryListener) {
 
         setOnClickListener(new OnClickListener() {
             @Override
@@ -104,19 +116,15 @@ public class LoadingLayout extends FrameLayout {
                 }
             }
         });
-//        loadingView.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                loadingView.setOnClickListener(null);
-//            }
-//        });
 
     }
-
     public void showLoadEmpty() {
+        showLoadEmpty("");
+    }
 
-        loadingView.setVisibleByStatus(STATUS_EMPTY_DATA);
+    public void showLoadEmpty(String msg) {
+
+        loadingView.setVisibleByStatus(STATUS_EMPTY_DATA,msg);
     }
 
     /**
@@ -130,7 +138,7 @@ public class LoadingLayout extends FrameLayout {
      */
     public LoadingLayout setLoadingText(String loadingText, int resColor, float textSize) {
         checkNotNUll();
-        loadingView.setLoadText(loadingText);
+
         loadingView.setColor(resColor);
         loadingView.setTextSize(textSize);
 

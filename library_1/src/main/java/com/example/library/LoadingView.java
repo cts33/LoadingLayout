@@ -1,6 +1,7 @@
 package com.example.library;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,7 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         setBackgroundColor(bgColor);
     }
 
-    public void setVisibleByStatus(int status) {
+    public void setVisibleByStatus(int status, String msg) {
 
 
         switch (status) {
@@ -57,18 +58,16 @@ public class LoadingView extends LinearLayout implements ILoadingView {
                 break;
             case STATUS_LOAD_FAILED:
 
-                showLoadFailed();
+                showLoadFailed(msg);
                 break;
             case STATUS_EMPTY_DATA:
 
-                showLoadEmpty();
+                showLoadEmpty(msg);
                 break;
             default:
                 break;
         }
-        mImage.setImageResource(currImage);
-        setOnClickListener(onClickListener);
-        mDes.setText(currMsg);
+
         setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
@@ -78,6 +77,10 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         currMsg = loadingMsg;
         currImage = R.drawable.loading_anim;
         show = true;
+
+        mImage.setImageResource(currImage);
+        setOnClickListener(onClickListener);
+        mDes.setText(currMsg);
     }
 
     @Override
@@ -85,11 +88,16 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         show = false;
     }
 
-    @Override
-    public void showLoadFailed() {
-        currMsg = errorMsg;
+
+    public void showLoadFailed(String msg) {
+
+        currMsg = TextUtils.isEmpty(msg) ? errorMsg : msg;
         currImage = R.drawable.icon_failed;
         show = true;
+
+        mImage.setImageResource(currImage);
+        setOnClickListener(onClickListener);
+        mDes.setText(currMsg);
 
     }
 
@@ -99,14 +107,15 @@ public class LoadingView extends LinearLayout implements ILoadingView {
 
 
     @Override
-    public void showLoadEmpty() {
-        currMsg = emptyMsg;
+    public void showLoadEmpty(String msg) {
+
+        currMsg = TextUtils.isEmpty(msg) ? emptyMsg : msg;
         currImage = R.drawable.icon_empty;
         show = true;
-    }
 
-    public void setLoadText(String loadingText) {
-        mDes.setText(loadingText);
+        mImage.setImageResource(currImage);
+        setOnClickListener(onClickListener);
+        mDes.setText(currMsg);
     }
 
     public void setColor(@ColorInt int resColor) {

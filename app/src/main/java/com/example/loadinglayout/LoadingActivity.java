@@ -62,7 +62,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
         mLoadinglayout2.setRetryClickListener(() -> {
 
-//            Toast.makeText(LoadingActivity.this, "点击重试", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoadingActivity.this, "点击重试", Toast.LENGTH_SHORT).show();
             failed();
         });
 
@@ -89,7 +89,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         Glide.with(this).load(imgUrl).addListener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                mLoadinglayout1.showLoadFailed();
+                mLoadinglayout1.showLoadFailed("出错了");
                 return false;
             }
 
@@ -106,13 +106,13 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         Glide.with(this).load(imgUrl).addListener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                mLoadinglayout2.showLoading();
+                mLoadinglayout2.showLoadFailed();
                 return false;
             }
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                mLoadinglayout2.showLoadFailed();
+                mLoadinglayout2.showLoadFailed("chu  cuola");
 //
                 return false;
             }
@@ -131,7 +131,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                mLoadinglayout3.showLoadEmpty();
+                mLoadinglayout3.showLoadEmpty("mu--you");
                 return false;
             }
         }).into(mImage3);
