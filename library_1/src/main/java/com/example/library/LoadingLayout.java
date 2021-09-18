@@ -7,9 +7,10 @@ import static com.example.library.ILoadingView.STATUS_LOAD_SUCCESS;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -29,6 +30,44 @@ public class LoadingLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
 
         initConfig();
+    }
+
+    public static final int MAX_CHILD_LIMIT = 2 - 1;
+
+    @Override
+    public void addView(View child) {
+        if (getChildCount() > MAX_CHILD_LIMIT) {
+            throw new IllegalStateException("LoadingLayout can host only one direct child");
+        }
+
+        super.addView(child);
+    }
+
+    @Override
+    public void addView(View child, int index) {
+        if (getChildCount() > MAX_CHILD_LIMIT) {
+            throw new IllegalStateException("LoadingLayout can host only one direct child");
+        }
+
+        super.addView(child, index);
+    }
+
+    @Override
+    public void addView(View child, ViewGroup.LayoutParams params) {
+        if (getChildCount() > MAX_CHILD_LIMIT) {
+            throw new IllegalStateException("LoadingLayout can host only one direct child");
+        }
+
+        super.addView(child, params);
+    }
+
+    @Override
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        if (getChildCount() > MAX_CHILD_LIMIT) {
+            throw new IllegalStateException("LoadingLayout can host only one direct child");
+        }
+
+        super.addView(child, index, params);
     }
 
     private void initConfig() {
@@ -53,10 +92,26 @@ public class LoadingLayout extends FrameLayout {
 
         loadingView.setVisibleByStatus(STATUS_LOAD_FAILED);
     }
-    public void showLoadFailed(OnClickListener onClickListener) {
 
-        loadingView.setVisibleByStatus(STATUS_LOAD_FAILED);
-        loadingView.setOnClickListener(onClickListener);
+
+    public void setRetryClickListener(IRetryListener iRetryListener){
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (iRetryListener != null) {
+                    iRetryListener.retryClick();
+                }
+            }
+        });
+//        loadingView.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                loadingView.setOnClickListener(null);
+//            }
+//        });
+
     }
 
     public void showLoadEmpty() {
@@ -82,11 +137,6 @@ public class LoadingLayout extends FrameLayout {
         return this;
     }
 
-    public LoadingLayout setBgColor( int resColor) {
-        checkNotNUll();
-        loadingView.setBgColor(resColor);
-        return this;
-    }
 
     private void checkNotNUll() {
         if (loadingView == null)

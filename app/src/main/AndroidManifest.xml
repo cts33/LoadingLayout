@@ -10,15 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LoadingLayout">
-        <activity android:name=".Loading_2_Activity"></activity>
-<!--        <activity android:name=".Loading_1_Activity" />-->
-        <activity android:name=".MainActivity"  android:exported="true"  >
+        <activity android:name=".LoadingActivity">
+
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -1,5 +1,5 @@
 package com.example.library;
 
-public interface IRetryClickListener {
+public interface IRetryListener {
     void retryClick();
 }

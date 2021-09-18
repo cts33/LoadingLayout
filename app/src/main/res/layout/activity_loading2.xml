@@ -4,14 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Loading_2_Activity">
+    android:orientation="vertical"
+    tools:context=".LoadingActivity">
 
 
-    <fragment
+    <LinearLayout
+
+        android:id="@+id/success"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment"
-        android:name="com.example.loadinglayout.LoadingFragment"
-        />
+        android:layout_height="222dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_700"
+            android:gravity="center"
+            android:text="请求成功"
+            android:textSize="22sp" />
+
+        <com.example.library.LoadingLayout
+            android:id="@+id/loadinglayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_200">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.example.library.LoadingLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/failed"
+        android:layout_width="match_parent"
+        android:layout_height="222dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/success">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="请求失败"
+            android:textSize="22sp" />
+
+        <com.example.library.LoadingLayout
+            android:id="@+id/loadinglayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.example.library.LoadingLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="222dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/failed">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="请求空白"
+            android:textSize="22sp" />
+
+        <com.example.library.LoadingLayout
+            android:id="@+id/loadinglayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.example.library.LoadingLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

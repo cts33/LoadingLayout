@@ -9,17 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.IdRes;
-import androidx.annotation.StringRes;
 
 public class LoadingView extends LinearLayout implements ILoadingView {
 
-    private LayoutInflater inflater;
     private Context context;
     private ImageView mImage;
-    private IRetryClickListener iRetryClickListener;
     private TextView mDes;
-
+    private boolean show = true;
+    private String currMsg;
+    private int currImage = R.drawable.loading_anim;
+    private OnClickListener onClickListener;
     private String errorMsg, emptyMsg, loadingMsg;
     private int bgColor;
 
@@ -30,10 +29,10 @@ public class LoadingView extends LinearLayout implements ILoadingView {
 
     private void initView() {
         context = getContext();
-        inflater = LayoutInflater.from(context);
+
         setOrientation(LinearLayout.VERTICAL);
         setGravity(Gravity.CENTER_HORIZONTAL);
-        LayoutInflater.from(context).inflate(R.layout.view_loading, this, true);
+        LayoutInflater.from(context).inflate(R.layout.loading_view, this, true);
         mImage = findViewById(R.id.image);
         mDes = findViewById(R.id.text);
         bgColor = getResources().getColor(android.R.color.white);
@@ -44,12 +43,6 @@ public class LoadingView extends LinearLayout implements ILoadingView {
 
         setBackgroundColor(bgColor);
     }
-
-    private static final String TAG = "NormalLoadingView";
-    private boolean show = true;
-    private String currMsg;
-    private int currImage = R.drawable.loading_anim;
-    private OnClickListener onClickListener;
 
     public void setVisibleByStatus(int status) {
 
@@ -80,7 +73,6 @@ public class LoadingView extends LinearLayout implements ILoadingView {
     }
 
 
-
     @Override
     public void showLoading() {
         currMsg = loadingMsg;
@@ -100,7 +92,8 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         show = true;
 
     }
-    public void setOnClickListener(OnClickListener onClickListener){
+
+    public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
@@ -124,8 +117,4 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         mDes.setTextSize(textSize);
     }
 
-    public void setBgColor( int bgColor) {
-        this.bgColor = bgColor;
-        setBackgroundColor(this.bgColor);
-    }
 }

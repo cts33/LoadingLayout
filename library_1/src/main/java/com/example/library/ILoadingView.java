@@ -1,12 +1,5 @@
 package com.example.library;
 
-
-import android.view.View;
-
-/**
- *
- *
- */
 public interface ILoadingView   {
     int STATUS_LOADING = 1;
     int STATUS_LOAD_SUCCESS = 2;
