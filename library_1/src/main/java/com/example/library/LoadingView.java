@@ -1,10 +1,16 @@
 package com.example.library;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,10 +24,11 @@ public class LoadingView extends LinearLayout implements ILoadingView {
     private TextView mDes;
     private boolean show = true;
     private String currMsg;
-    private int currImage = R.drawable.loading_anim;
+    private int currImage = R.drawable.icon_loading;
     private OnClickListener onClickListener;
     private String errorMsg, emptyMsg, loadingMsg;
     private int bgColor;
+    private Animator rotation;
 
     public LoadingView(Context context) {
         super(context);
@@ -75,21 +82,70 @@ public class LoadingView extends LinearLayout implements ILoadingView {
     @Override
     public void showLoading() {
         currMsg = loadingMsg;
-        currImage = R.drawable.loading_anim;
+        currImage = R.drawable.icon_loading;
         show = true;
-
         mImage.setImageResource(currImage);
+        startAnim(mImage);
         setOnClickListener(onClickListener);
         mDes.setText(currMsg);
+    }
+
+    /**
+     * 执行旋转属性动画
+     *
+     * @param mImage
+     */
+    private void startAnim(ImageView mImage) {
+
+        rotation = ObjectAnimator.ofFloat(mImage, "rotation", 0f, 360f);
+        rotation.setDuration(1000);
+        rotation.setInterpolator(new LinearInterpolator());
+        rotation.setTarget(mImage);
+        rotation.start();
+        rotation.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+                startAnim(mImage);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 
     @Override
     public void showLoadSuccess() {
         show = false;
+        clearAnim();
     }
 
+    /**
+     * 停止动画
+     */
+    public void clearAnim() {
+        if (rotation != null) {
+            rotation.removeAllListeners();
+            rotation.end();
+            rotation.cancel();
+            rotation = null;
+        }
+    }
 
     public void showLoadFailed(String msg) {
+        clearAnim();
 
         currMsg = TextUtils.isEmpty(msg) ? errorMsg : msg;
         currImage = R.drawable.icon_failed;
@@ -98,6 +154,7 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         mImage.setImageResource(currImage);
         setOnClickListener(onClickListener);
         mDes.setText(currMsg);
+
 
     }
 
@@ -108,7 +165,7 @@ public class LoadingView extends LinearLayout implements ILoadingView {
 
     @Override
     public void showLoadEmpty(String msg) {
-
+        clearAnim();
         currMsg = TextUtils.isEmpty(msg) ? emptyMsg : msg;
         currImage = R.drawable.icon_empty;
         show = true;
