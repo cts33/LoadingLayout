@@ -42,28 +42,22 @@ Activity里使用
 ```java
  
         mLoadinglayout = (LoadingLayout) findViewById(R.id.loadinglayout2);
+        
+        //失败重试
         mLoadinglayout.setRetryClickListener(() -> {
 
           Toast.makeText(LoadingActivity.this, "点击重试", Toast.LENGTH_SHORT).show();
             
         });
 
-
-        private void success() {
-                mLoadinglayout.showLoading();
-                Glide.with(this).load(imgUrl).addListener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                mLoadinglayout1.showLoadFailed();
-                                return false;
-                            }
+   
+     
+     mLoadinglayout.showLoading();
+     mLoadinglayout.showLoadSuccess();
+     
+     mLoadinglayout.showLoadFailed(“可以自定义msg”);
+     mLoadinglayout.showLoadEmpty("可以自定义msg");
+   
             
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                mLoadinglayout1.showLoadSuccess();
-                                return false;
-                        }
-                    }).into(mImage1);
-                }
 ```
  
