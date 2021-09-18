@@ -3,7 +3,9 @@
 # 1.loading组件
 
 ## 1.1 library 使用方式
+
 xml
+
 ```xml
 
     <LinearLayout
@@ -20,7 +22,7 @@ xml
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="请求失败"
+            android:text="测试"
             android:textSize="22sp" />
 
         <com.example.library.LoadingLayout
