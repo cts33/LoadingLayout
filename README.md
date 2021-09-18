@@ -3,57 +3,65 @@
 # 1.loading组件
 
 ## 1.1 library 使用方式
+xml
+```xml
+
+    <LinearLayout
+
+        android:id="@+id/failed"
+        android:layout_width="match_parent"
+        android:layout_height="222dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/success">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="请求失败"
+            android:textSize="22sp" />
+
+        <com.example.library.LoadingLayout
+            android:id="@+id/loadinglayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.example.library.LoadingLayout>
+    </LinearLayout>
+
+```
 Activity里使用
+```java
+ 
+        mLoadinglayout = (LoadingLayout) findViewById(R.id.loadinglayout2);
+        mLoadinglayout.setRetryClickListener(() -> {
+
+          Toast.makeText(LoadingActivity.this, "点击重试", Toast.LENGTH_SHORT).show();
+            
+        });
+
+
+        private void success() {
+                mLoadinglayout.showLoading();
+                Glide.with(this).load(imgUrl).addListener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                mLoadinglayout1.showLoadFailed();
+                                return false;
+                            }
+            
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                mLoadinglayout1.showLoadSuccess();
+                                return false;
+                        }
+                    }).into(mImage1);
+                }
 ```
-    //oncreate
-   noBoLoadingManager = new NoBoLoadingManager(this);
-
-    //加载数据前
-   noBoLoadingManager.showLoading();
-
-   //加载失败
-   noBoLoadingManager.showLoadFailed(new LoadingView.IRetryClickListener() {
-                               @Override
-                               public void retryClick() {
-                                   initViews();
-                               }
-                           });
-
-    //加载成功
-     noBoLoadingManager.showLoadSuccess();
-
-     //回收资源
-     noBoLoadingManager.clear();
-
-```
-
-Fragment和view使用 类似
-
-```
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_main, null);
-        //传入根布局
-        noBoLoadingManager = new NoBoLoadingManager(root);
-
-        mImage = root.findViewById(R.id.image);
-
-        initViews();
-
-        //返回parent对象
-        return (View) root.getParent();
-    }
-
-
-
-   noBoLoadingManager.showLoading();
-
-   noBoLoadingManager.showLoadFailed(new LoadingView.IRetryClickListener() {
-                             @Override
-                             public void retryClick() {
-                                 initViews();
-                             }
-                         });
-    noBoLoadingManager.showLoadSuccess();
-
-
-```
+ 
