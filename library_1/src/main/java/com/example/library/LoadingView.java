@@ -3,6 +3,7 @@ package com.example.library;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,7 +29,7 @@ public class LoadingView extends LinearLayout implements ILoadingView {
     private OnClickListener onClickListener;
     private String errorMsg, emptyMsg, loadingMsg;
     private int bgColor;
-    private Animator rotation;
+    private ValueAnimator rotation;
 
     public LoadingView(Context context) {
         super(context);
@@ -97,33 +98,15 @@ public class LoadingView extends LinearLayout implements ILoadingView {
      */
     private void startAnim(ImageView mImage) {
 
+        clearAnim();
         rotation = ObjectAnimator.ofFloat(mImage, "rotation", 0f, 360f);
         rotation.setDuration(1000);
         rotation.setInterpolator(new LinearInterpolator());
         rotation.setTarget(mImage);
+        rotation.setRepeatMode(ValueAnimator.RESTART);
+        rotation.setRepeatCount(ValueAnimator.INFINITE);
         rotation.start();
-        rotation.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-
-                startAnim(mImage);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
     }
 
     @Override
