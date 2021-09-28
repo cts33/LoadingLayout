@@ -60,11 +60,6 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         mLoadinglayout2 = (LoadingLayout) findViewById(R.id.loadinglayout2);
         mLoadinglayout3 = (LoadingLayout) findViewById(R.id.loadinglayout3);
 
-        mLoadinglayout2.setRetryClickListener(() -> {
-
-            Toast.makeText(LoadingActivity.this, "点击重试", Toast.LENGTH_SHORT).show();
-            failed();
-        });
 
 
     }
@@ -89,7 +84,7 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         Glide.with(this).load(imgUrl).addListener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                mLoadinglayout1.showLoadFailed("出错了");
+                mLoadinglayout1.showLoadFailed();
                 return false;
             }
 
@@ -112,7 +107,12 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                mLoadinglayout2.showLoadFailed("chu  cuola");
+                mLoadinglayout2.showLoadFailed("chu  cuola", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        failed();
+                    }
+                });
 //
                 return false;
             }

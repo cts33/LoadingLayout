@@ -86,6 +86,7 @@ public class LoadingLayout extends FrameLayout {
         if (index == -1) {
             addView(loadingView);
         }
+        loadingView.setOnClickListener(null);
     }
 
     public void showLoadSuccess() {
@@ -94,37 +95,36 @@ public class LoadingLayout extends FrameLayout {
 
     public void showLoadSuccess(String msg) {
         loadingView.setVisibleByStatus(STATUS_LOAD_SUCCESS, msg);
+
+        loadingView.setOnClickListener(null);
     }
 
     public void showLoadFailed() {
-        showLoadFailed("");
+        showLoadFailed("", null);
     }
 
-    public void showLoadFailed(String msg) {
+    public void showLoadFailed(OnClickListener onClickListener) {
+        showLoadFailed("", onClickListener);
+    }
+
+    public void showLoadFailed(String msg, OnClickListener onClickListener) {
 
         loadingView.setVisibleByStatus(STATUS_LOAD_FAILED, msg);
+
+        if (onClickListener == null) return;
+
+        loadingView.setOnClickListener(onClickListener);
     }
 
 
-    public void setRetryClickListener(IRetryListener iRetryListener) {
-
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (iRetryListener != null) {
-                    iRetryListener.retryClick();
-                }
-            }
-        });
-
-    }
     public void showLoadEmpty() {
         showLoadEmpty("");
     }
 
     public void showLoadEmpty(String msg) {
 
-        loadingView.setVisibleByStatus(STATUS_EMPTY_DATA,msg);
+        loadingView.setVisibleByStatus(STATUS_EMPTY_DATA, msg);
+        loadingView.setOnClickListener(null);
     }
 
     /**

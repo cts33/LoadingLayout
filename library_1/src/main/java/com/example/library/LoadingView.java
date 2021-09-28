@@ -25,7 +25,6 @@ public class LoadingView extends LinearLayout implements ILoadingView {
     private boolean show = true;
     private String currMsg;
     private int currImage = R.drawable.icon_loading;
-    private OnClickListener onClickListener;
     private String errorMsg, emptyMsg, loadingMsg;
     private int bgColor;
     private Animator rotation;
@@ -86,7 +85,7 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         show = true;
         mImage.setImageResource(currImage);
         startAnim(mImage);
-        setOnClickListener(onClickListener);
+
         mDes.setText(currMsg);
     }
 
@@ -152,15 +151,12 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         show = true;
 
         mImage.setImageResource(currImage);
-        setOnClickListener(onClickListener);
+
         mDes.setText(currMsg);
 
 
     }
 
-    public void setOnClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
 
 
     @Override
@@ -171,7 +167,7 @@ public class LoadingView extends LinearLayout implements ILoadingView {
         show = true;
 
         mImage.setImageResource(currImage);
-        setOnClickListener(onClickListener);
+
         mDes.setText(currMsg);
     }
 
